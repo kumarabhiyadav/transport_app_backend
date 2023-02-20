@@ -4,13 +4,11 @@ export enum CustomerType {}
 
 export class Customer {
   @prop({ trim: true })
-  name: string;
+  customerName: string;
 
   @prop({ trim: true })
   companyName: string;
 
-  @prop({ trim: true })
-  CustomerDisplayName: string;
 
   @prop({ trim: true })
   email: string;
@@ -18,8 +16,11 @@ export class Customer {
   @prop({ trim: true })
   phone: string;
 
+
   @prop({ trim: true })
-  mobile: string;
+  address: string;
+
+
 
   @prop({ trim: true })
   receivables: number;

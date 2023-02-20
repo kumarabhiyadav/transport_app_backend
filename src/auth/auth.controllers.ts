@@ -7,7 +7,6 @@ export const login = async (req: any, res: Response) => {
   let { email, password } = req.body;
 
   const user = await UserModel.findOne({ email: email });
-
 };
 
 export const signup = async (req: Request, res: Response) => {
@@ -21,10 +20,8 @@ export const signup = async (req: Request, res: Response) => {
       message: "User Already Exists with this email and password",
     });
   } else {
-    
     user = await UserModel.create({
       email,
-      
       countryCode,
       phone,
       fullName,

@@ -11,6 +11,8 @@ export const createRide = async (req: Request, res: Response) => {
     rate,
     detention,
     customer,
+    source,
+    destination
   } = req.body;
 
   try {
@@ -23,6 +25,8 @@ export const createRide = async (req: Request, res: Response) => {
       rate,
       detention,
       customer,
+      source,
+      destination
     });
 
     if (ride) {

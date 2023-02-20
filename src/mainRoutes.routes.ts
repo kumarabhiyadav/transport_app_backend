@@ -1,5 +1,6 @@
 import express from "express";
 import { AuthRoutes } from "./auth/auth.routes";
+import { CustomerRoutes } from "./customerModule/customer.routes";
 import { RideRoutes } from "./rideModule/ride.routes";
 
 const app = express();
@@ -7,6 +8,8 @@ const app = express();
 
 app.use("/auth", AuthRoutes);
 app.use("/ride", RideRoutes);
+app.use("/customer", CustomerRoutes);
+
 
 
 

@@ -7,7 +7,7 @@ export class Ride {
   truckNumber: string;
 
   @prop({ trim: true })
-  lrno: string;
+  lrNo: string;
 
   @prop({})
   date: Date;
@@ -26,6 +26,13 @@ export class Ride {
 
   @prop({})
   customer: string;
+
+  @prop({})
+  source: string;
+
+  
+  @prop({})
+  destination: string;
 
   @prop({ default: true })
   isActive: boolean;
