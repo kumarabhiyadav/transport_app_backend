@@ -2,13 +2,14 @@ import { Request, Response } from "express";
 import { CustomerModel } from "./Customer.model";
 
 export const createCustomer = async (req: any, res: Response) => {
-  let { customerName, companyName, phone, email } = req.body;
+  let { customerName, companyName, phone, email,address } = req.body;
   try {
     const customer = await CustomerModel.create({
       companyName,
       customerName,
       phone,
       email,
+      address
     });
 
     if (customer) {
