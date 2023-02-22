@@ -16,6 +16,7 @@ export const createInvoice = async (req: any, res: Response) => {
 
   try {
     for await (const ride of rides) {
+      console.log(ride);
     }
 
     const invoice = await InvoiceModel.create({});

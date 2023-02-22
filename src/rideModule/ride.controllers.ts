@@ -103,7 +103,7 @@ export const deleteRide = async (req: any, res: Response) => {
 
   try {
     const ride = await RideModel.findByIdAndUpdate(rideId, {
-      isDelected: true,
+      isDeleted: true,
     });
 
     if (ride) {
