@@ -5,7 +5,8 @@ import { Ride } from "../rideModule/ride.model";
 
 export class Invoice {
   @prop({ ref: () => Customer })
-  customer: Ref<Customer>;
+  // customer: Ref<Customer>;
+  customer : string;
 
   @prop()
   invoiceNo: string;
