@@ -91,7 +91,7 @@ const deleteRide = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     let { rideId } = req.body;
     try {
         const ride = yield ride_model_1.RideModel.findByIdAndUpdate(rideId, {
-            isDelected: true,
+            isDeleted: true,
         });
         if (ride) {
             res.status(201).json({

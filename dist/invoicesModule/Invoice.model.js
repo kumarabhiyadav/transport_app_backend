@@ -17,7 +17,7 @@ class Invoice {
 }
 __decorate([
     (0, typegoose_1.prop)({ ref: () => Customer_model_1.Customer }),
-    __metadata("design:type", Object)
+    __metadata("design:type", String)
 ], Invoice.prototype, "customer", void 0);
 __decorate([
     (0, typegoose_1.prop)(),

@@ -18,16 +18,33 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createInvoice = void 0;
 const Invoice_model_1 = require("./Invoice.model");
+const ride_model_1 = require("../rideModule/ride.model");
 const createInvoice = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, e_1, _b, _c;
     let { invoiceNo, customer, date, source, destination, advance, rides } = req.body;
     try {
+        let rideIds = [];
         try {
-            for (var _d = true, rides_1 = __asyncValues(rides), rides_1_1; rides_1_1 = yield rides_1.next(), _a = rides_1_1.done, !_a;) {
-                _c = rides_1_1.value;
+            for (var _d = true, _e = __asyncValues(JSON.parse(rides)), _f; _f = yield _e.next(), _a = _f.done, !_a;) {
+                _c = _f.value;
                 _d = false;
                 try {
                     const ride = _c;
+                    let insertedRide = yield ride_model_1.RideModel.create({
+                        truckNumber: ride.truckNumber,
+                        lrNo: ride.lrNo,
+                        date: ride.date,
+                        particular: ride.particular,
+                        quantity: ride.quantity,
+                        rate: ride.rate,
+                        detention: ride.detention,
+                        customer: customer,
+                        source: ride.source,
+                        destination: ride.destination,
+                    });
+                    if (insertedRide) {
+                        rideIds.push(insertedRide.id);
+                    }
                 }
                 finally {
                     _d = true;
@@ -37,11 +54,19 @@ const createInvoice = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         catch (e_1_1) { e_1 = { error: e_1_1 }; }
         finally {
             try {
-                if (!_d && !_a && (_b = rides_1.return)) yield _b.call(rides_1);
+                if (!_d && !_a && (_b = _e.return)) yield _b.call(_e);
             }
             finally { if (e_1) throw e_1.error; }
         }
-        const invoice = yield Invoice_model_1.InvoiceModel.create({});
+        const invoice = yield Invoice_model_1.InvoiceModel.create({
+            invoiceNo,
+            customer,
+            date,
+            source,
+            destination,
+            advance,
+            rides: rideIds,
+        });
         if (invoice) {
             res.status(201).json({
                 success: true,
