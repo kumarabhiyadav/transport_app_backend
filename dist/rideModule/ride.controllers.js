@@ -150,7 +150,7 @@ exports.toggleActiveStatus = toggleActiveStatus;
 const fetchRides = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const ride = yield ride_model_1.RideModel.find({
-            isDeleted: false,
+            isDeleted: true,
         });
         if (ride) {
             res.status(201).json({
