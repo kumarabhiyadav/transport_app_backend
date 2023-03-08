@@ -161,7 +161,7 @@ export const toggleActiveStatus = async (req: any, res: Response) => {
 export const fetchRides = async (req: any, res: Response) => {
   try {
     const ride = await RideModel.find({
-      isDeleted: false,
+      isDeleted: true,
     });
 
     if (ride) {
