@@ -35,7 +35,6 @@ export const createCustomer = async (req: any, res: Response) => {
 };
 
 export const fetchCustomers = async (req: any, res: Response) => {
-  let { customerName, companyName, phone, email } = req.body;
   try {
     const customer = await CustomerModel.find({
       isActive: true,

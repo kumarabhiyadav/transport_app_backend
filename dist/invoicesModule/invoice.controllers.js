@@ -16,12 +16,12 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
     function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createInvoice = void 0;
+exports.fetchInvoices = exports.createInvoice = void 0;
 const Invoice_model_1 = require("./Invoice.model");
 const ride_model_1 = require("../rideModule/ride.model");
 const createInvoice = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, e_1, _b, _c;
-    let { invoiceNo, customer, date, source, destination, advance, rides } = req.body;
+    let { invoiceNo, customer, date, source, total, destination, advance, rides, } = req.body;
     try {
         let rideIds = [];
         try {
@@ -66,6 +66,7 @@ const createInvoice = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             destination,
             advance,
             rides: rideIds,
+            total,
         });
         if (invoice) {
             res.status(201).json({
@@ -91,3 +92,36 @@ const createInvoice = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.createInvoice = createInvoice;
+const fetchInvoices = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let { invoiceNo, customer, date, source, destination, advance, rides } = req.body;
+    try {
+        const invoice = yield Invoice_model_1.InvoiceModel.find({
+            isDeleted: false,
+            isActive: true,
+        })
+            .populate("customer")
+            .populate("rides");
+        if (invoice) {
+            res.status(201).json({
+                success: true,
+                message: "Invoice fetch Successfull",
+                result: invoice,
+            });
+        }
+        else {
+            res.status(201).json({
+                success: false,
+                message: "Failed to fetch invoice",
+                result: null,
+            });
+        }
+    }
+    catch (error) {
+        res.status(201).json({
+            success: false,
+            message: "Failed to fetch invoice ",
+            error: error,
+        });
+    }
+});
+exports.fetchInvoices = fetchInvoices;

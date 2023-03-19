@@ -2,11 +2,9 @@ import { getModelForClass, prop, Ref } from "@typegoose/typegoose";
 import { Customer } from "../customerModule/Customer.model";
 import { Ride } from "../rideModule/ride.model";
 
-
 export class Invoice {
   @prop({ ref: () => Customer })
-  // customer: Ref<Customer>;
-  customer : string;
+  customer: Ref<Customer>;
 
   @prop()
   invoiceNo: string;

@@ -46,7 +46,6 @@ const createCustomer = (req, res) => __awaiter(void 0, void 0, void 0, function*
 });
 exports.createCustomer = createCustomer;
 const fetchCustomers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let { customerName, companyName, phone, email } = req.body;
     try {
         const customer = yield Customer_model_1.CustomerModel.find({
             isActive: true,

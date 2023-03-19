@@ -4,8 +4,16 @@ import { Request, Response } from "express";
 import { RideModel } from "../rideModule/ride.model";
 
 export const createInvoice = async (req: any, res: Response) => {
-  let { invoiceNo, customer, date, source, destination, advance, rides } =
-    req.body;
+  let {
+    invoiceNo,
+    customer,
+    date,
+    source,
+    total,
+    destination,
+    advance,
+    rides,
+  } = req.body;
 
   try {
     let rideIds = [];
@@ -35,6 +43,7 @@ export const createInvoice = async (req: any, res: Response) => {
       destination,
       advance,
       rides: rideIds,
+      total,
     });
 
     if (invoice) {
@@ -54,6 +63,40 @@ export const createInvoice = async (req: any, res: Response) => {
     res.status(201).json({
       success: false,
       message: "Failed to create invoice ",
+      error: error,
+    });
+  }
+};
+
+export const fetchInvoices = async (req: any, res: Response) => {
+  let { invoiceNo, customer, date, source, destination, advance, rides } =
+    req.body;
+
+  try {
+    const invoice = await InvoiceModel.find({
+      isDeleted: false,
+      isActive: true,
+    })
+      .populate("customer")
+      .populate("rides");
+
+    if (invoice) {
+      res.status(201).json({
+        success: true,
+        message: "Invoice fetch Successfull",
+        result: invoice,
+      });
+    } else {
+      res.status(201).json({
+        success: false,
+        message: "Failed to fetch invoice",
+        result: null,
+      });
+    }
+  } catch (error) {
+    res.status(201).json({
+      success: false,
+      message: "Failed to fetch invoice ",
       error: error,
     });
   }
