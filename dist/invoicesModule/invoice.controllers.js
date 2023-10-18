@@ -68,6 +68,9 @@ const createInvoice = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             rides: rideIds,
             total,
         });
+        rideIds.forEach((ride) => {
+            ride_model_1.RideModel.findByIdAndUpdate(ride, { invoiceId: invoice.id });
+        });
         if (invoice) {
             res.status(201).json({
                 success: true,
@@ -100,7 +103,7 @@ const fetchInvoices = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             isActive: true,
         })
             .populate("customer")
-            .populate("rides");
+            .populate("rides").sort({ createdAt: -1 });
         if (invoice) {
             res.status(201).json({
                 success: true,

@@ -11,10 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RideModel = exports.Ride = exports.CustomerType = void 0;
 const typegoose_1 = require("@typegoose/typegoose");
+const Customer_model_1 = require("src/customerModule/Customer.model");
+const Invoice_model_1 = require("src/invoicesModule/Invoice.model");
 var CustomerType;
 (function (CustomerType) {
 })(CustomerType = exports.CustomerType || (exports.CustomerType = {}));
 class Ride {
+    ;
 }
 __decorate([
     (0, typegoose_1.prop)({ trim: true }),
@@ -45,8 +48,8 @@ __decorate([
     __metadata("design:type", Number)
 ], Ride.prototype, "detention", void 0);
 __decorate([
-    (0, typegoose_1.prop)({}),
-    __metadata("design:type", String)
+    (0, typegoose_1.prop)({ ref: () => Customer_model_1.Customer }),
+    __metadata("design:type", Object)
 ], Ride.prototype, "customer", void 0);
 __decorate([
     (0, typegoose_1.prop)({}),
@@ -56,6 +59,10 @@ __decorate([
     (0, typegoose_1.prop)({}),
     __metadata("design:type", String)
 ], Ride.prototype, "destination", void 0);
+__decorate([
+    (0, typegoose_1.prop)({ ref: () => Invoice_model_1.Invoice }),
+    __metadata("design:type", Object)
+], Ride.prototype, "invoiceId", void 0);
 __decorate([
     (0, typegoose_1.prop)({ default: true }),
     __metadata("design:type", Boolean)

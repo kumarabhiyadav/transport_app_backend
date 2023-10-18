@@ -1,4 +1,6 @@
 import { getModelForClass, prop, Ref } from "@typegoose/typegoose";
+import { Customer } from "src/customerModule/Customer.model";
+import { Invoice } from "src/invoicesModule/Invoice.model";
 
 export enum CustomerType {}
 
@@ -24,8 +26,8 @@ export class Ride {
   @prop({ default: 0 })
   detention: number;
 
-  @prop({})
-  customer: string;
+  @prop({ref: () => Customer})
+  customer: Ref<Customer>;;
 
   @prop({})
   source: string;
@@ -33,6 +35,9 @@ export class Ride {
   
   @prop({})
   destination: string;
+
+  @prop({ref: () => Invoice})
+  invoiceId: Ref<Invoice>;
 
   @prop({ default: true })
   isActive: boolean;

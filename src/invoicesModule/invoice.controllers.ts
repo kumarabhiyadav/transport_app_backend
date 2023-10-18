@@ -16,7 +16,7 @@ export const createInvoice = async (req: any, res: Response) => {
   } = req.body;
 
   try {
-    let rideIds = [];
+    let rideIds:Array<string> = [];
     for await (const ride of JSON.parse(rides)) {
       let insertedRide = await RideModel.create({
         truckNumber: ride.truckNumber,
@@ -45,6 +45,10 @@ export const createInvoice = async (req: any, res: Response) => {
       rides: rideIds,
       total,
     });
+
+    rideIds.forEach((ride)=>{
+      RideModel.findByIdAndUpdate(ride,{invoiceId:invoice.id});
+    })
 
     if (invoice) {
       res.status(201).json({
@@ -78,7 +82,7 @@ export const fetchInvoices = async (req: any, res: Response) => {
       isActive: true,
     })
       .populate("customer")
-      .populate("rides");
+      .populate("rides").sort({createdAt:-1});
 
     if (invoice) {
       res.status(201).json({
